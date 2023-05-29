@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useState } from "react";
-import { LoginSocialFacebook, LoginSocialGoogle, LoginSocialInstagram } from "reactjs-social-login";
-import { FacebookLoginButton, GoogleLoginButton, InstagramLoginButton } from "react-social-login-buttons";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 function App() {
   const [profile, setProfile] = useState(null);
