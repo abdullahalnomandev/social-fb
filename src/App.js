@@ -28,8 +28,9 @@ function App() {
       )}
 
       {profile ? (
-        <div style={{ margin: "auto", width: "400px" }}>
+        <div style={{ margin: "auto", width: "" }}>
           <h1>{profile.name}</h1>
+          <p style={{width:"100px",color:'red'}}>{`"${profile.accessToken}"`}</p>
           <img
             style={{ widht: "100px", height: "100px", borderRadius: "100%" }}
             src={profile.picture.data.url}
