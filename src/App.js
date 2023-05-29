@@ -6,12 +6,14 @@ import axios from "axios";
 
 function App() {
   const [profile, setProfile] = useState(null);
-  const [accounts, setAccounts] = useState([])
+  const [accounts, setAccounts] = useState([]);
 
-  console.log("accounts",accounts);
+  console.log("accounts", accounts);
   const getAccounts = async (token) => {
     try {
-      const {data} = await axios.get(  `https://graph.facebook.com/me/accounts?access_token=${token}`);
+      const { data } = await axios.get(
+        `https://graph.facebook.com/me/accounts?access_token=${token}`
+      );
       setAccounts(data);
     } catch (error) {
       console.log(error);
@@ -56,7 +58,7 @@ function App() {
         ""
       )}
 
-      {accounts.length && (
+      {accounts?.data?.length && (
         <form action="">
           <select name="" id="">
             {accounts.data.map(({ name }) => (
