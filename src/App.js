@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useState } from "react";
 import { LoginSocialFacebook } from "reactjs-social-login";
-import { FacebookLoginButton } from "react-social-login-buttons";
+// import { FacebookLoginButton } from "react-social-login-buttons";
 import axios from "axios";
+import { createButton } from "react-social-login-buttons";
 
 function App() {
   const [profile, setProfile] = useState(null);
   const [accounts, setAccounts] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(null);
 
-  console.log("accounts", accounts);
   const getAccounts = async (token) => {
     try {
       const { data } = await axios.get(
@@ -19,6 +20,31 @@ function App() {
       console.log(error);
     }
   };
+
+  
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const selectedAccount = accounts?.data?.find(
+    (acc) => acc?.id === selectedValue
+  );
+
+  const handleFormSubmit = (e) => {
+    console.log(selectedValue);
+    console.log("Selected Account", selectedAccount);
+    e.preventDefault();
+  };
+
+  const config = {
+    text: " Continue with Facebook",
+    icon: "facebook",
+    iconFormat: (name) => `fa fa-${name}`,
+    style: { background: "#3b5998", width: "300px" },
+    activeStyle: { background: "#293e69" }
+  };
+  const MyFacebookLoginButton = createButton(config);
+
 
   return (
     <div>
@@ -37,12 +63,11 @@ function App() {
             console.log(error);
           }}
         >
-          <FacebookLoginButton />
+          <MyFacebookLoginButton></MyFacebookLoginButton>
         </LoginSocialFacebook>
       ) : (
         ""
       )}
-
       {profile ? (
         <div style={{ margin: "auto", width: "" }}>
           <h1>{profile.name}</h1>
@@ -57,14 +82,14 @@ function App() {
       ) : (
         ""
       )}
-
       {accounts?.data?.length && (
-        <form action="">
-          <select name="" id="">
-            {accounts.data.map(({ name }) => (
-              <option value={name}>{name}</option>
+        <form action="" onSubmit={handleFormSubmit}>
+          <select name="" id="" onChange={handleChange}>
+            {accounts.data.map((data) => (
+              <option value={data.id}>{data.name}</option>
             ))}
           </select>
+          {selectedValue && <input type="submit" value="Next" />}
         </form>
       )}
     </div>
