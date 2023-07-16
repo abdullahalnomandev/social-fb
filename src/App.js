@@ -160,9 +160,9 @@ const IndexPage = () => {
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
 
-  }, [profile]);
+  }, []);
 
-  const statusChangeCallback = (response) => {
+  const statusChange = (response) => {
     if (response.status === "connected") {
       console.log(response);
       console.log("token", response?.authResponse?.accessToken);
@@ -174,7 +174,7 @@ const IndexPage = () => {
   };
   function checkLoginState() {
     window.FB.getLoginStatus(function (response) {
-      statusChangeCallback(response);
+      statusChange(response);
     });
   }
 
