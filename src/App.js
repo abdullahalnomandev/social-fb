@@ -137,7 +137,7 @@ const IndexPage = () => {
   const statusChangeCallback = (response) => {
     if (response.status === "connected") {
       console.log(response);
-      console.log("token",response.authResponse.accessToken, response.data);
+      console.log("token",response?.authResponse?.accessToken);
     } else {
       console.log("Not authenticated");
     }
