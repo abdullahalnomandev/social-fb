@@ -159,8 +159,8 @@ const IndexPage = () => {
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
-    
-  }, []);
+
+  }, [profile]);
 
   const statusChangeCallback = (response) => {
     if (response.status === "connected") {
