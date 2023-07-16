@@ -103,9 +103,37 @@
 
 // export default Instagram;
 
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const IndexPage = () => {
+  const [profile, setProfile] = useState(null);
+  const [accounts, setAccounts] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const getAccounts = async (token) => {
+    try {
+      const { data } = await axios.get(
+        `https://graph.facebook.com/me/accounts?access_token=${token}`
+      );
+      setAccounts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+     const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+  const selectedAccount = accounts?.data?.find(
+    (acc) => acc?.id === selectedValue
+  );
+
+  const handleFormSubmit = (e) => {
+    console.log(selectedValue);
+    console.log("Selected Account", selectedAccount);
+    e.preventDefault();
+  };
+
   useEffect(() => {
     window.fbAsyncInit = function () {
       window.FB.init({
@@ -131,13 +159,14 @@ const IndexPage = () => {
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
-
   }, []);
-  
+
   const statusChangeCallback = (response) => {
     if (response.status === "connected") {
       console.log(response);
-      console.log("token",response?.authResponse?.accessToken);
+      console.log("token", response?.authResponse?.accessToken);
+      setProfile(response?.authResponse);
+      getAccounts(response?.authResponse?.accessToken);
     } else {
       console.log("Not authenticated");
     }
@@ -149,13 +178,54 @@ const IndexPage = () => {
   }
 
   return (
-    <button
-      className="fb-login-button"
-      data-scope="public_profile, email, pages_show_list, business_management, instagram_basic, instagram_manage_comments, instagram_manage_messages, page_events, pages_read_engagement, pages_manage_metadata, pages_messaging"
-      data-onlogin={checkLoginState}
-    >
-      Click
-    </button>
+    <>
+      <button
+        className="fb-login-button"
+        data-scope="public_profile, email, pages_show_list, business_management, instagram_basic, instagram_manage_comments, instagram_manage_messages, page_events, pages_read_engagement, pages_manage_metadata, pages_messaging"
+        data-onlogin={checkLoginState}
+      >
+        Click
+      </button>
+      {profile ? (
+        <div style={{ margin: "auto", width: "" }}>
+          <h1>{profile.name}</h1>
+          <p
+            style={{ width: "100px", color: "red" }}
+          >{`"${profile.accessToken}"`}</p>
+          <img
+            style={{ widht: "100px", height: "100px", borderRadius: "100%" }}
+            src={profile.picture.data.url}
+          />
+        </div>
+      ) : (
+        ""
+      )}
+
+       {profile ? (
+         <div style={{ margin: "auto", width: "" }}>
+           <h1>{profile.name}</h1>
+           <p
+             style={{ width: "100px", color: "red" }}
+           >{`"${profile.accessToken}"`}</p>
+           <img
+             style={{ widht: "100px", height: "100px", borderRadius: "100%" }}
+             src={profile.picture.data.url}
+           />
+         </div>
+       ) : (
+         ""
+       )}
+       {accounts?.data?.length && (
+         <form action="" onSubmit={handleFormSubmit}>
+           <select name="" id="" onChange={handleChange}>
+             {accounts.data.map((data) => (
+               <option value={data.id}>{data.name}</option>
+             ))}
+           </select>
+           {selectedValue && <input type="submit" value="Next" />}
+         </form>
+       )}
+    </>
   );
 };
 
