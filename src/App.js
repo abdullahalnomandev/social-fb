@@ -212,7 +212,7 @@ const IndexPage = () => {
            >{`"${profile?.accessToken}"`}</p>
            <img
              style={{ widht: "100px", height: "100px", borderRadius: "100%" }}
-             src={profile.picture.data.url}
+             src={profile?.picture?.data?.url}
            />
          </div>
        ) : (
