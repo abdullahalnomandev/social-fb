@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 // import { useState } from "react";
 // import { LoginSocialFacebook } from "reactjs-social-login";
@@ -160,7 +161,7 @@ const IndexPage = () => {
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
 
-  }, []);
+  }, [statusChangeCallback]);
 
   const statusChangeCallback = (response) => {
     if (response.status === "connected") {
