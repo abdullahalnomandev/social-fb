@@ -189,7 +189,7 @@ const IndexPage = () => {
       >
         Click
       </button>
-      {profile ? (
+      {/* {profile ? (
         <div style={{ margin: "auto", width: "" }}>
           <h1>{profile.name}</h1>
           <p
@@ -227,7 +227,7 @@ const IndexPage = () => {
            </select>
            {selectedValue && <input type="submit" value="Next" />}
          </form>
-       )}
+       )} */}
     </>
   );
 };
