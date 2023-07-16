@@ -95,7 +95,6 @@
 
 // export default App;
 
-
 // import Link from "next/link";
 
 // const Instagram = () => {
@@ -133,26 +132,26 @@ const IndexPage = () => {
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
 
-    const statusChangeCallback = (response) => {
-      if (response.status === "connected") {
-        console.log(response);
-      } else {
-        console.log("Not authenticated");
-      }
-    };
-
-    function checkLoginState() {
-      window.FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
-      });
-    }
   }, []);
+  
+  const statusChangeCallback = (response) => {
+    if (response.status === "connected") {
+      console.log(response);
+    } else {
+      console.log("Not authenticated");
+    }
+  };
+  function checkLoginState() {
+    window.FB.getLoginStatus(function (response) {
+      statusChangeCallback(response);
+    });
+  }
 
   return (
     <button
       className="fb-login-button"
       data-scope="public_profile, email, pages_show_list, business_management, instagram_basic, instagram_manage_comments, instagram_manage_messages, page_events, pages_read_engagement, pages_manage_metadata, pages_messaging"
-      // data-onlogin={checkLoginState}
+      data-onlogin={checkLoginState}
     >
       Click
     </button>
