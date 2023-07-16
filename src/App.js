@@ -162,7 +162,7 @@ const IndexPage = () => {
 
   }, []);
 
-  const statusChange = (response) => {
+  const statusChangeCallback = (response) => {
     if (response.status === "connected") {
       console.log(response);
       console.log("token", response?.authResponse?.accessToken);
@@ -174,7 +174,7 @@ const IndexPage = () => {
   };
   function checkLoginState() {
     window.FB.getLoginStatus(function (response) {
-      statusChange(response);
+      statusChangeCallback(response);
     });
   }
 
