@@ -206,10 +206,10 @@ const IndexPage = () => {
 
        {profile ? (
          <div style={{ margin: "auto", width: "" }}>
-           <h1>{profile.name}</h1>
+           <h1>{profile?.name}</h1>
            <p
              style={{ width: "100px", color: "red" }}
-           >{`"${profile.accessToken}"`}</p>
+           >{`"${profile?.accessToken}"`}</p>
            <img
              style={{ widht: "100px", height: "100px", borderRadius: "100%" }}
              src={profile.picture.data.url}
@@ -221,8 +221,8 @@ const IndexPage = () => {
        {accounts?.data?.length && (
          <form action="" onSubmit={handleFormSubmit}>
            <select name="" id="" onChange={handleChange}>
-             {accounts.data.map((data) => (
-               <option value={data.id}>{data.name}</option>
+             {accounts?.data?.map((data) => (
+               <option value={data?.id}>{data.name}</option>
              ))}
            </select>
            {selectedValue && <input type="submit" value="Next" />}
