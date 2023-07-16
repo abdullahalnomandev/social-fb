@@ -161,6 +161,7 @@ const IndexPage = () => {
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
 
+  // eslint-disable-next-line no-use-before-define
   }, [statusChangeCallback]);
 
   const statusChangeCallback = (response) => {
