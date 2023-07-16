@@ -179,6 +179,8 @@ const IndexPage = () => {
       statusChangeCallback(response);
     });
   }
+  console.log("profile",profile);
+  console.log("accounts",accounts);
 
   return (
     <>
@@ -217,17 +219,17 @@ const IndexPage = () => {
          </div>
        ) : (
          ""
-       )}
+       )} */}
        {accounts?.data?.length && (
          <form action="" onSubmit={handleFormSubmit}>
            <select name="" id="" onChange={handleChange}>
              {accounts?.data?.map((data) => (
-               <option value={data?.id}>{data.name}</option>
+               <option value={data?.id}>{data?.name}</option>
              ))}
            </select>
            {selectedValue && <input type="submit" value="Next" />}
          </form>
-       )} */}
+       )}
     </>
   );
 };
